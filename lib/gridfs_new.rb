@@ -76,4 +76,5 @@ class Rack::GridFSNew
     	    ]
     	  }).first
       end
+    end
 end
