@@ -1,11 +1,6 @@
 require 'mongo'
 require 'rack/request'
 require 'rack/utils'
-begin 
-  require 'rack/conditional_get'
-rescue LoadError => e
-  require 'rack/conditionalget'
-end
 
 class Rack::GridFSNew
   
@@ -35,7 +30,7 @@ class Rack::GridFSNew
   private
     
     def response_for(file, request)
-      [200, headers(file), file.data]
+      [200, headers(file), [file.data]]
     end
     
     def headers(file)
