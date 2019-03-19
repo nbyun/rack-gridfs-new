@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.licenses = ['MIT']
 
   s.name = 'rack-gridfs-new'
-  s.version = Rack::GridFSNEW::VERSION
+  s.version = Rack::GridFSNew::VERSION
 
   s.platform = Gem::Platform::RUBY
   s.files = `git ls-files`.split("\n").sort
