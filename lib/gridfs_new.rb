@@ -11,7 +11,7 @@ class Rack::GridFSNew
   
   VERSION = '0.0.1'
   
-  def initialize app, opt={}
+  def initialize app, opts={}
     @app = app
     @db = opts[:db]
     @prefix = (opts[:prefix] || 'gridfs').gsub(/^\/|\/$/, '')
