@@ -10,7 +10,8 @@ Gem::Specification.new do |s|
 
   s.name = 'rack-gridfs-new'
   s.version = Rack::GridFSNew::VERSION
-
+  s.summary  = %q{适用于mongo2.x版本的rack-gridfs中间件}
+  s.description = %q{private gem}
   s.platform = Gem::Platform::RUBY
   s.files = `git ls-files`.split("\n").sort
   s.require_paths = ['lib']
