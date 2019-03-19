@@ -24,8 +24,11 @@ class Rack::GridFSNew
   
   def _call env
     req = Rack::Request.new env
+    puts '---------------------'
+    puts req
     if under_prefix? req
       file = find_file req
+      puts file
       if file.nil?
         [404, {'Content-Type' => 'text/plain'}, ['Not Found']]
       else
