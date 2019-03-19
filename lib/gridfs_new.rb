@@ -28,6 +28,7 @@ class Rack::GridFSNew
     puts req
     if under_prefix? req
       file = find_file req
+      puts '222222222222222222'
       puts file
       if file.nil?
         [404, {'Content-Type' => 'text/plain'}, ['Not Found']]
@@ -48,6 +49,7 @@ class Rack::GridFSNew
         }).call(env)
       end
     else
+      puts '333333333333333'
       @app.call env
     end
   end
@@ -72,9 +74,9 @@ class Rack::GridFSNew
     def find_file req
     	str = id_or_filename req
     	if str.is_a? BSON::ObjectId
-    	  @db.fs.find({_id: str}).first
+    	  return @db.fs.find({_id: str}).first
     	else
-    	  @db.fs.find({
+    	  return @db.fs.find({
     	    '$or' => [
     	      {filename: str},
     	      {filename: "/#{str}"}
