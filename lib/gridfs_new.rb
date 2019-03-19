@@ -24,41 +24,27 @@ class Rack::GridFSNew
   
   def _call env
     req = Rack::Request.new env
-    puts '---------------------'
-    puts req
     if under_prefix? req
       file = find_file req
-      puts '222222222222222222'
-      puts file
-      if file.nil?
-        [404, {'Content-Type' => 'text/plain'}, ['Not Found']]
-      else
-        last_modified = Time.at file['uploadDate'].to_i
-        headers = {
-          'Content-Type' => file['contentType'],
-          'ETag' => file['md5'],
-          'Last-Modified' => last_modified.httpdate,
-          'Cache-Control' => @cache_control
-        }
-        Rack::ConditionalGet.new(lambda {|cg_env|
-          content = String.new
-          @db.fs.open_download_stream(file['_id']) do |stream|
-            content = stream.read
-          end
-          [200, headers, [content]]
-        }).call(env)
-      end
+      response_for(file, req)
     else
-      puts '333333333333333'
       @app.call env
     end
   end
   
   private
     
+    def response_for(file, request)
+      [200, headers(file), file]
+    end
+    
+    def headers(file)
+      content_type = file.content_type
+      content_type ='image/bmp' if content_type.end_with?('bmp')
+      { 'Content-Type' => content_type }
+    end
+    
     def under_prefix? req
-    	puts req.path_info
-    	puts req.path_info =~ %r|^/#@prefix/(.*)|
     	req.path_info =~ %r|^/#@prefix/(.*)|
     end
   
