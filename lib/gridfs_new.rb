@@ -60,14 +60,9 @@ class Rack::GridFSNew
     def find_file req
     	str = id_or_filename req
     	if str.is_a? BSON::ObjectId
-    	  return @db.fs.find({_id: str}).first
+    	  @db.fs.find_one(_id: str)
     	else
-    	  return @db.fs.find({
-    	    '$or' => [
-    	      {filename: str},
-    	      {filename: "/#{str}"}
-    	    ]
-    	  }).first
+    	  @db.fs.find_one(filename: str) || @db.fs.find_one(filename: "/#{str}")
       end
     end
 end
