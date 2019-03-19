@@ -35,7 +35,7 @@ class Rack::GridFSNew
   private
     
     def response_for(file, request)
-      [200, headers(file), file]
+      [200, headers(file), file.data]
     end
     
     def headers(file)
