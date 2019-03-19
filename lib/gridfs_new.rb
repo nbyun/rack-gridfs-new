@@ -55,6 +55,8 @@ class Rack::GridFSNew
   private
     
     def under_prefix? req
+    	puts req.path_info
+    	puts req.path_info =~ %r|^/#@prefix/(.*)|
     	req.path_info =~ %r|^/#@prefix/(.*)|
     end
   
