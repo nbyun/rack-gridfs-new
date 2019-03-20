@@ -11,7 +11,7 @@ class Rack::GridFSNew
     @db = opts[:db]
     @prefix = (opts[:prefix] || 'gridfs').gsub(/^\/|\/$/, '')
     @cache_control = opts[:cache_control] || 'no-cache'
-    @mapper  = @options[:mapper]
+    @mapper  = opts[:mapper]
   end
   
   def call env
