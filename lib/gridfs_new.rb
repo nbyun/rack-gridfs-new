@@ -11,6 +11,7 @@ class Rack::GridFSNew
     @db = opts[:db]
     @prefix = (opts[:prefix] || 'gridfs').gsub(/^\/|\/$/, '')
     @cache_control = opts[:cache_control] || 'no-cache'
+    @mapper  = @options[:mapper]
   end
   
   def call env
@@ -44,7 +45,7 @@ class Rack::GridFSNew
     end
   
     def id_or_filename req
-    	str = req.path_info.sub %r|^/#@prefix/|, ''
+       str = @mapper.respond_to?(:call) ? @mapper.call(path) : path
     	if BSON::ObjectId.legal? str
     	  BSON::ObjectId.from_string str
     	else
