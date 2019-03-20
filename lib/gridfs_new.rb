@@ -45,7 +45,7 @@ class Rack::GridFSNew
     end
   
     def id_or_filename req
-       str = @mapper.respond_to?(:call) ? @mapper.call(path) : path
+       str = @mapper.respond_to?(:call) ? @mapper.call(req.path_info) : req.path_info
     	if BSON::ObjectId.legal? str
     	  BSON::ObjectId.from_string str
     	else
